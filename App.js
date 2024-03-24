@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFonts, Inter_900Black, Inter_400Regular, Inter_700Bold, Inter_300Light } from '@expo-google-fonts/inter';
+import { useState } from 'react';
 
 const TimeInfo = ({ label, value }) => {
   return (
@@ -14,9 +15,11 @@ const TimeInfo = ({ label, value }) => {
 
 export default function App() {
 
+  const [seeMore, setSeeMore] = useState(false);
+
   let [fontsLoaded] = useFonts({
-    'Inter-Regular': Inter_400Regular,
     'Inter-Black': Inter_900Black,
+    'Inter-Regular': Inter_400Regular,
     'Inter-Bold': Inter_700Bold,
     'Inter-Light': Inter_300Light
   });
@@ -31,16 +34,19 @@ export default function App() {
       <View style={styles.parent}>
 
         {/* UpperView */}
-        <View style={styles.upperView}>
-          <View>
-            <Text style={{ fontFamily: 'Inter-Regular', color: '#fff', fontSize: 12, lineHeight: 22 }}>“The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.”</Text>
-            <Text style={{ fontFamily: 'Inter-Bold', color: '#fff', fontSize: 12, lineHeight: 22 }}>Ada Lovelace</Text>
-          </View>
+        {
+          !seeMore && (
+            <View style={styles.upperView}>
+              <View>
+                <Text style={{ fontFamily: 'Inter-Regular', color: '#fff', fontSize: 12, lineHeight: 22 }}>“The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.”</Text>
+                <Text style={{ fontFamily: 'Inter-Bold', color: '#fff', fontSize: 12, lineHeight: 22 }}>Ada Lovelace</Text>
+              </View>
 
-          <View>
-            <Image source={require('./assets/refresh.png')}></Image>
-          </View>
-        </View>
+              <View>
+                <Image source={require('./assets/refresh.png')}></Image>
+              </View>
+            </View>
+          )}
 
         {/* LowerView */}
         <View style={styles.LowerView}>
@@ -70,23 +76,29 @@ export default function App() {
 
           {/* Button */}
           <View>
-            <TouchableOpacity onPress={{}} style={styles.button}>
-              <Text style={styles.buttonText}>More</Text>
-              <Image source={require('./assets/Group 3.png')}></Image>
+            <TouchableOpacity onPress={() => setSeeMore(!seeMore)} style={styles.button}>
+              <Text style={styles.buttonText}>
+                {!seeMore ? 'More' : 'Less'}
+              </Text>
+              <Image
+                source={seeMore ? require('./assets/Group 3(1).png') : require('./assets/Group 3.png')}>
+              </Image>
             </TouchableOpacity>
           </View>
 
         </View>
 
-
       </View>
       {/* Expanded view */}
-      <View style={styles.expandedView}>
-        <TimeInfo label={'current timezone'} value={'Europe/London'}></TimeInfo>
-        <TimeInfo label={'day of the year'} value={'295'}></TimeInfo>
-        <TimeInfo label={'day of the week'} value={'5'}></TimeInfo>
-        <TimeInfo label={'week number'} value={'42'}></TimeInfo>
-      </View>
+      {
+        seeMore && (
+          <View style={styles.expandedView}>
+            <TimeInfo label={'current timezone'} value={'Europe/London'}></TimeInfo>
+            <TimeInfo label={'day of the year'} value={'295'}></TimeInfo>
+            <TimeInfo label={'day of the week'} value={'5'}></TimeInfo>
+            <TimeInfo label={'week number'} value={'42'}></TimeInfo>
+          </View>
+        )}
     </ImageBackground>
   );
 }
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   LowerView: {
-
+    marginTop: 100
   },
   // Greetings
   greeting: {
@@ -174,7 +186,7 @@ const styles = StyleSheet.create({
   },
   // ExpandedView
   expandedView: {
-    paddingHorizontal:26,
+    paddingHorizontal: 26,
     paddingVertical: 48,
     backgroundColor: 'rgba(0,0,0,.6)'
   },
