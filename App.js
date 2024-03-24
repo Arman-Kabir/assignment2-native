@@ -2,6 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useFonts, Inter_900Black, Inter_400Regular, Inter_700Bold, Inter_300Light } from '@expo-google-fonts/inter';
 
+const TimeInfo = ({ label, value }) => {
+  return (
+    <View style={styles.infoRow}>
+      <Text style={styles.infoLabel}>{label}</Text>
+      <Text style={styles.infoValue}>{value}</Text>
+    </View>
+  )
+}
+
+
 export default function App() {
 
   let [fontsLoaded] = useFonts({
@@ -68,10 +78,14 @@ export default function App() {
 
         </View>
 
-        {/* Expanded part
-        <View>
 
-        </View> */}
+      </View>
+      {/* Expanded view */}
+      <View style={styles.expandedView}>
+        <TimeInfo label={'current timezone'} value={'Europe/London'}></TimeInfo>
+        <TimeInfo label={'day of the year'} value={'295'}></TimeInfo>
+        <TimeInfo label={'day of the week'} value={'5'}></TimeInfo>
+        <TimeInfo label={'week number'} value={'42'}></TimeInfo>
       </View>
     </ImageBackground>
   );
@@ -151,12 +165,36 @@ const styles = StyleSheet.create({
     marginVertical: 48
   },
   buttonText: {
-    paddingLeft:10,
+    paddingLeft: 10,
     textTransform: 'uppercase',
     fontFamily: 'Inter-Bold',
     letterSpacing: 3,
     fontSize: 12,
     color: 'rgba(0, 0, 0, .5)'
+  },
+  // ExpandedView
+  expandedView: {
+    paddingHorizontal:26,
+    paddingVertical: 48,
+    backgroundColor: 'rgba(0,0,0,.6)'
+  },
+  infoRow: {
+    marginBottom: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  infoLabel: {
+    fontFamily: 'Inter-Regular',
+    color: '#fff',
+    fontSize: 10,
+    letterSpacing: 2,
+    textTransform: 'uppercase'
+  },
+  infoValue: {
+    fontFamily: 'Inter-Bold',
+    color: '#fff',
+    fontSize: 20
   }
 
 });
