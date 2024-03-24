@@ -61,7 +61,7 @@ export default function App() {
           {/* Button */}
           <View>
             <TouchableOpacity onPress={{}} style={styles.button}>
-              <Text>More</Text>
+              <Text style={styles.buttonText}>More</Text>
               <Image source={require('./assets/Group 3.png')}></Image>
             </TouchableOpacity>
           </View>
@@ -139,13 +139,24 @@ const styles = StyleSheet.create({
   },
   // Button
   button: {
-    flexDirection:'row',
-    gap:8,
-    alignItems:'center',
+    flexDirection: 'row',
+    gap: 8,
+    alignItems: 'center',
     backgroundColor: '#fff',
     color: '#000',
     width: 115,
-    height: 39
+    height: 39,
+    borderRadius: 20,
+    justifyContent: 'space-around',
+    marginVertical: 48
+  },
+  buttonText: {
+    paddingLeft:10,
+    textTransform: 'uppercase',
+    fontFamily: 'Inter-Bold',
+    letterSpacing: 3,
+    fontSize: 12,
+    color: 'rgba(0, 0, 0, .5)'
   }
 
 });
