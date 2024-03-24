@@ -35,8 +35,13 @@ export default function App() {
         <View style={styles.LowerView}>
 
           {/* greetings */}
-          <View>
+          <View style={styles.greeting}>
+            <Image
+              source={require('./assets/Path.png')}
+              style={styles.greetingImage}>
+            </Image>
 
+            <Text style={styles.greetingsText}>Good Evening</Text>
           </View>
 
           {/* Time */}
@@ -51,15 +56,15 @@ export default function App() {
 
           {/* Button */}
           <View>
-            
+
           </View>
 
         </View>
 
-        {/* Expanded part */}
+        {/* Expanded part
         <View>
 
-        </View>
+        </View> */}
       </View>
     </ImageBackground>
   );
@@ -82,5 +87,22 @@ const styles = StyleSheet.create({
   },
   LowerView: {
 
+  },
+  // Greetings
+  greeting: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16
+  },
+  greetingImage: {
+    width: 22,
+    height: 24,
+    marginTop: 1
+  },
+  greetingsText: {
+    color: '#fff',
+    fontFamily: 'Inter-Regular',
+    letterSpacing: 3,
+    lineHeight: 25
   }
 });
