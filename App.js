@@ -16,6 +16,7 @@ const TimeInfo = ({ label, value }) => {
 export default function App() {
 
   const [seeMore, setSeeMore] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
 
   let [fontsLoaded] = useFonts({
     'Inter-Black': Inter_900Black,
@@ -29,7 +30,9 @@ export default function App() {
   }
 
   return (
-    <ImageBackground source={require('./assets/bg1.png')} style={{ flex: 1 }}>
+    <ImageBackground
+      source={lightMode ? require('./assets/light-bg.png') : require('./assets/bg1.png')}
+      style={{ flex: 1 }}>
       {/* Parent */}
       <View style={styles.parent}>
 
@@ -53,10 +56,12 @@ export default function App() {
 
           {/* greetings */}
           <View style={styles.greeting}>
-            <Image
-              source={require('./assets/Path.png')}
-              style={styles.greetingImage}>
-            </Image>
+            <TouchableOpacity onPress={() => setLightMode(!lightMode)}>
+              <Image
+                source={lightMode ? require('./assets/sun.png') : require('./assets/Path.png')}
+                style={styles.greetingImage}>
+              </Image>
+            </TouchableOpacity>
 
             <Text style={styles.greetingsText}>Good Evening</Text>
           </View>
